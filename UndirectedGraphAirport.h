@@ -286,6 +286,31 @@ public:
 
         return vertexes[id]->data;
     }
+    
+    // Método para obtener la distancia entre dos aeropuertos conectados
+    // Si estan conectados se devuelve algun valor mayor a cero (su distancia)
+    // Si no estan conectados se devuelve -1
+    double getDistance(string id1, string id2)
+    {
+        if (!existVertex(id1) || !existVertex(id2))
+            //Vertice con IDs id1 y/o id2 no encontrado(s)
+            return -1.0;
+
+        Vertex* vertex1 = vertexes[id1];
+        Vertex* vertex2 = vertexes[id2];
+
+        // Si existe la arista id1, id2, mostrar su distancia, sino devolver -1
+        bool existeArista = false;
+        for (auto edge : vertex1->edges) {
+            if ((edge->vertexes[0] == vertex1 && edge->vertexes[1] == vertex2) || 
+			    (edge->vertexes[0] == vertex2 && edge->vertexes[1] == vertex1))
+                return edge->distancia;
+        }
+
+        //Vertice con IDs id1 y/o id2 no encontrado(s)
+        return -1.0;
+    }
+    
 };
 
 #endif

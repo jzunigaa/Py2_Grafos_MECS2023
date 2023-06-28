@@ -12,7 +12,7 @@ int main()
     Airport b("2796", "Peru", "Pedro Canga"                  , "Tumbes", -80.381356, -3.552528);
     Airport c("6067", "Peru", "Fap David Figueroa"           , "Huanuco", -76.204797, -9.878811);
     Airport d("6066", "Peru", "Fap Armando Revoredo"         , "Cajamarca", -78.4894, -7.139183);
-    Airport e("2808", "Peru", "Pedro Aldamiz"                , "Puero Maldonado", -69.228611, -12.613611);
+    Airport e("2808", "Peru", "Pedro Aldamiz"                , "Puerto Maldonado", -69.228611, -12.613611);
     Airport f("2809", "Peru", "Fap Guillermo Concha"         , "Piura", -80.616444, -5.20575);
     Airport g("2802", "Peru", "Rodriguez Ballon"             , "Arequipa", -71.583083, -16.341072);
     Airport h("2801", "Peru", "Coronel Franciso Secada Intl" , "Iquitos", -73.308806, -3.784739);
@@ -91,6 +91,17 @@ int main()
     else
         cout << "El grafo no esta vacio" << endl;
     
+    // Verificar si los aeropuertos x y y estan conectados
+    Airport x = a, y = f; // a Lima, f Piura estan conectados, d Cajamarca, g Arequipa estan desconectados
+    cout << "\nVerificando si los aeropuertos de " << x.City << " y " << y.City << " estan conectados" <<endl;
+    double dist = graph.getDistance(x.Airport_ID, y.Airport_ID);
+    if( dist >= 0 )
+      cout << "Los aeropuertos " << x.City << " y " << y.City << " estan conectados" <<endl
+           << "La distancia entre ellos es " << dist << " Km" << endl;
+    else
+	  cout << "Los aeropuertos " << x.City << " y " << y.City << " NO estan conectados" <<endl;       
+   
+      
     // Limpiar el grafo
     graph.clear();
 
