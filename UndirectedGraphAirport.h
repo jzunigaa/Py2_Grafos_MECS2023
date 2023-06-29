@@ -40,7 +40,7 @@ private:
 public:
 	
 	/**
-	  Insertar nuevo vÈrtice que es Aeropuerto
+	  Insertar nuevo v√©rtice que es Aeropuerto
 	**/
     bool insertVertex(Airport vertex)
     {
@@ -56,23 +56,23 @@ public:
     }
     
     /**
-      Verificar si existe un vÈrtice (por id)
+      Verificar si existe un v√©rtice (por id)
     **/
     bool existVertex(string id)
     {
-    	// Si el vÈrtice id No existe (end es nulo)
+    	// Si el v√©rtice id No existe (end es nulo)
     	if (vertexes.find(id) == vertexes.end()) 
     		return false;
     	return true;	
 	}
 	
 	/**
-	  Crear nueva arista entre los vÈrtices aeropuertos a1 y a2
-	  Internamente se calcular· el peso (distancia)
+	  Crear nueva arista entre los v√©rtices aeropuertos a1 y a2
+	  Internamente se calcular√° el peso (distancia)
 	**/
     bool createEdge(Airport a1, Airport a2)
     {
-    	// Si no existe uno o los dos vÈrtices, salir!
+    	// Si no existe uno o los dos v√©rtices, salir!
 		if (!existVertex(a1.Airport_ID) || !existVertex(a2.Airport_ID))
             return false;    
         
@@ -87,7 +87,7 @@ public:
         newEdge->vertexes[1] = v2;
         newEdge->distancia = aux.distancia(Posicion(a2.Longitude, a2.Latitude), Posicion(a1.Longitude, a1.Latitude));
 
-		// Agregar la arista anterior a cada vÈrtice
+		// Agregar la arista anterior a cada v√©rtice
         v1->edges.push_back(newEdge);
         v2->edges.push_back(newEdge);
 
@@ -103,12 +103,12 @@ public:
 		if (!existVertex(a.Airport_ID))
 			return false;
 		
-		// Obtener el vÈrtice a eliminar
+		// Obtener el v√©rtice a eliminar
         Vertex* vertexToDelete = vertexes[a.Airport_ID];
 
-        // Recorrer las aristas del vÈrtice a eliminar
+        // Recorrer las aristas del v√©rtice a eliminar
 		for (auto edge : vertexToDelete->edges) {
-			// Cada arista tiene 2 vÈrtices v1 y v2
+			// Cada arista tiene 2 v√©rtices v1 y v2
 			if(edge->vertexes[0] == vertexToDelete)
 			{
 				Vertex* otherVertex = edge->vertexes[1];
@@ -129,15 +129,15 @@ public:
     }
     
     /**
-      Borrar la arista que tiene vÈrtices id1 e id2
+      Borrar la arista que tiene v√©rtices id1 e id2
     **/
     bool deleteEdge(Airport a1, Airport a2)
     {
-    	// Si no existe vÈrtices id1 y/o id2, salir!!!
+    	// Si no existe v√©rtices id1 y/o id2, salir!!!
         if (!existVertex(a1.Airport_ID) || !existVertex(a2.Airport_ID))
             return false;    
 
-        // Con los ids obtener los vÈrtices v1 y v2
+        // Con los ids obtener los v√©rtices v1 y v2
 		Vertex* v1 = vertexes[a1.Airport_ID];
         Vertex* v2 = vertexes[a2.Airport_ID];
 
@@ -152,7 +152,7 @@ public:
             }
         }
 
-        // Si no se encontrÛ la arista o son vÈrtices desconectados, salir!!!
+        // Si no se encontr√≥ la arista o son v√©rtices desconectados, salir!!!
 		if (edgeToDelete == nullptr)
             return false;
 
@@ -165,7 +165,7 @@ public:
     }
     
     /**
-      Obtiene el nro de vÈrtices
+      Obtiene el nro de v√©rtices
     **/
     int getNumVertices()
     {
@@ -186,20 +186,20 @@ public:
     	for (const auto& vertex : vertexes) {
             numEdges += vertex.second->edges.size();
         }
-        numEdges = numEdges / 2; // en este caso es NO dirigido solo existe una conexiÛn entre vÈrtices
+        numEdges = numEdges / 2; // en este caso es NO dirigido solo existe una conexi√≥n entre v√©rtices
 
         return numEdges;
 	}
     
     /**
-      Calcula la densidad de las conexiones entre vÈrtices
+      Calcula la densidad de las conexiones entre v√©rtices
     **/
     float density()
     {
         int numVertices = getNumVertices();
         int numEdges = getNumEdges();
 
-        // Si es grafo vacÌo 
+        // Si es grafo vac√≠o 
         if (numVertices <= 1)
             return 0.0;
 
@@ -219,7 +219,7 @@ public:
     }
     
     /**
-      Devuelve true si est· vacÌo el grafo
+      Devuelve true si est√° vac√≠o el grafo
 	**/
     bool empty()
     {
@@ -227,7 +227,7 @@ public:
     }
     
     /**
-      Borrar todos los vÈrtices y aristas del grafo
+      Borrar todos los v√©rtices y aristas del grafo
 	**/
     void clear()
     {
@@ -242,11 +242,11 @@ public:
     }
     
 	/**
-	  Mostrar los vÈrtices y sus aristas
+	  Mostrar los v√©rtices y sus aristas
 	**/  
     void display()
     {
-    	// Recorrer el hash table de vÈrtices
+    	// Recorrer el hash table de v√©rtices
         for (const auto& vertex : vertexes) {
             cout << "Aeropuerto ID " << vertex.first << ", Ciudad " << vertex.second->data.Name <<", tiene conexiones con:"<<endl;
             cout << "Rutas: ";
@@ -258,7 +258,7 @@ public:
     }
     
     /**
-      Mostrar un vÈrtice
+      Mostrar un v√©rtice
     **/
     void displayVertex(Airport a)
     {
@@ -277,7 +277,7 @@ public:
     }
     
     /**
-      Buscar el vÈrtice por id y devolver la data
+      Buscar el v√©rtice por id y devolver la data
 	**/
     Airport findById(string id)
     {
@@ -287,7 +287,7 @@ public:
         return vertexes[id]->data;
     }
     
-    // MÈtodo para obtener la distancia entre dos aeropuertos conectados
+    // M√©todo para obtener la distancia entre dos aeropuertos conectados
     // Si estan conectados se devuelve algun valor mayor a cero (su distancia)
     // Si no estan conectados se devuelve -1
     double getDistance(string id1, string id2)
@@ -310,6 +310,15 @@ public:
         //Vertice con IDs id1 y/o id2 no encontrado(s)
         return -1.0;
     }
+
+  // Recupera los v√©rtices
+  unordered_map<string, Vertex*> getVertexes() const {
+  unordered_map<string, Vertex*> result;
+  for (const auto& vertex : vertexes) {
+    result[vertex.first] = vertex.second;
+  }
+  return result;
+  }
     
 };
 
