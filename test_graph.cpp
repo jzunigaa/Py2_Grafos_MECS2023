@@ -19,7 +19,7 @@ int main()
     Airport i("2806", "Peru", "Cadete Guillermo del Castillo", "Tarapoto", -76.373247, -6.508742);
     Airport j("2807", "Peru", "Coronel Carlos Ciriani Intl"  , "Tacna", -70.275833, -18.053333);
 
-    // Insertar v�rtices por aeropuerto
+    // Insertar vértices por aeropuerto
     graph.insertVertex(a);
     graph.insertVertex(b);
     graph.insertVertex(c);
@@ -56,7 +56,7 @@ int main()
     float density = graph.density();
     cout << "\nDensidad del grafo: " << density << endl;
 
-    // Borrar v�rtice y arista
+    // Borrar vértice y arista
     cout<<"\nSe eliminara el aeropuerto Tumbes"<<endl;
     graph.deleteVertex(b);
     cout<<"Se eliminara la ruta entre los aeropuertos Huanuco y Cajamarca"<<endl<<endl;
@@ -85,7 +85,7 @@ int main()
         cout << "\nEl grafo no es denso" << endl;
 
 
-	// Verificar si el grafo est� vac�o
+	// Verificar si el grafo está vacío
     if (graph.empty())
         cout << "El grafo esta vacio" << endl;
     else
@@ -102,6 +102,68 @@ int main()
 	  cout << "Los aeropuertos " << x.City << " y " << y.City << " NO estan conectados" <<endl;       
    
       
+    //Prueba Algoritmos
+    cout << "--------Algoritmos--------" << endl;
+    string origen = "2789"; // ID del aeropuerto de origen
+    string destino = "2807"; // ID del aeropuerto de destino
+
+    //Prueba Dijkstra
+    cout << "--------Dijkstra" << endl;
+    DijkstraResult resultDijkstra = dijkstra(graph, origen, destino);
+    
+    // Obtener los resultados de la ruta, distancia y número de iteraciones
+    vector<string> rutaDijkstra = resultDijkstra.route;
+    double distanciaDijkstra = resultDijkstra.distance;
+    int iteracionesDijkstra = resultDijkstra.iterations;
+    
+    // Imprimir los resultados
+    cout << "Ruta: ";
+    for (const string& airportID : rutaDijkstra) {
+        cout << airportID << " ";
+    }
+    cout << endl;
+    
+    cout << "Distancia: " << distanciaDijkstra << " Km" << endl;
+    cout << "Número de iteraciones: " << iteracionesDijkstra << endl;
+
+    //Prueba A*
+    cout << "--------A*" << endl;
+    AStarResult resultAstar = astar(graph, origen, destino);
+    
+    // Obtener los resultados de la ruta, distancia y número de iteraciones
+    vector<string> rutaAstar = resultAstar.route;
+    double distanciaAstar = resultAstar.distance;
+    int iteracionesAstar = resultAstar.iterations;
+    
+    // Imprimir los resultados
+    cout << "Ruta: ";
+    for (const string& airportID : rutaAstar) {
+        cout << airportID << " ";
+    }
+    cout << endl;
+    
+    cout << "Distancia: " << distanciaAstar << " Km" << endl;
+    cout << "Número de iteraciones: " << iteracionesAstar << endl;
+
+    //Prueba BFS
+    cout << "--------BFS" << endl;
+    AStarResult resultBFS = astar(graph, origen, destino);
+    
+    // Obtener los resultados de la ruta, distancia y número de iteraciones
+    vector<string> rutaBFS = resultBFS.route;
+    double distanciaBFS = resultBFS.distance;
+    int iteracionesBFS = resultBFS.iterations;
+    
+    // Imprimir los resultados
+    cout << "Ruta: ";
+    for (const string& airportID : rutaBFS) {
+        cout << airportID << " ";
+    }
+    cout << endl;
+    
+    cout << "Distancia: " << distanciaBFS << " Km" << endl;
+    cout << "Número de iteraciones: " << iteracionesBFS << endl;
+
     // Limpiar el grafo
     graph.clear();
 
