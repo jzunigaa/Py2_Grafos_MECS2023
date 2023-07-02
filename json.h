@@ -122,14 +122,14 @@ public:
                     lon_max = std::stod(it->data["Longitude"]);
 	        	};
 
-	        	if(G.existVertex(it->data["Airport ID"]))
+	        	/*if(G.existVertex(it->data["Airport ID"]))
 	        	{
 	        		std::cout<<"Se ha guardado correctamente el aeropuerto "<<it->data["Airport ID"]<<" : "<<it->data["City"]<<endl;;
 				}
 				else
 				{
 					std::cout<<"No se ha guardado el aeropuerto "<<it->data["Airport ID"]<<" : "<<it->data["City"]<<endl;
-				}
+				}*/
 			}
 			else {
 				std::cout<<"No se ha guardado el aeropuerto "<<it->data["Airport ID"]<<" : "<<it->data["City"]<<", Longitud y/o Latitud con errores"<<endl;

@@ -19,13 +19,13 @@ class grafic{
     Graph grafo;
 
 public:
-    grafic(int _width_w,int _heigth_w, double _lat_min, double _lat_max, double _lon_min, double _lon_max,Graph _grafo){
+    grafic(int _width_w,int _heigth_w,Graph _grafo){
         width_w = _width_w;
         heigth_w = _heigth_w;
-        lat_min =  _lat_min;
-        lat_max = _lat_max;
-        lon_min = _lon_min;
-        lon_max = _lon_max;
+        lat_min =  _grafo.lat_min;
+        lat_max = _grafo.lat_max;
+        lon_min = _grafo.lon_min;
+        lon_max = _grafo.lon_max;
         grafo = _grafo;
         mid_x = width_w/2;
         mid_y = heigth_w/2;
@@ -57,8 +57,8 @@ public:
 
             //longitud = mid_x + vertex.second->data.Longitude*factor_x;
             //latitud = mid_y - vertex.second->data.Latitude*factor_y;
-            longitud = 50 + (vertex.second->data.Longitude - lon_min)*factor_x*0.9;
-            latitud = 50 + (vertex.second->data.Latitude - lat_min)*factor_y*0.9;
+            longitud = 50 + (vertex.second->data.Longitude - lon_min)*factor_x*0.75;
+            latitud = 50 + (vertex.second->data.Latitude - lat_min)*factor_y*0.75;
             if (latitud > mid_y){
                 latitud = latitud - 2*(latitud-mid_y);
             }else {
@@ -67,9 +67,11 @@ public:
             char arr[vertex.second->data.City.length() + 1];
             strcpy(arr,vertex.second->data.City.c_str());
             circle(longitud, latitud,2);
-            settextstyle(SANS_SERIF_FONT, HORIZ_DIR, 1);
+            /*settextstyle(SANS_SERIF_FONT, HORIZ_DIR, 1);
             settextjustify(LEFT_TEXT, CENTER_TEXT);
             outtextxy(longitud + 3, latitud, arr);
+            */
+            mensajeGrafico(longitud + 3,latitud,arr);
         };
 
         // Wait for the user to press a key.
@@ -77,6 +79,24 @@ public:
 
         // Close the graphics window.
         //closegraph();
+    }
+
+    /**
+
+    **/
+    void mensajeGrafico(int x, int y, char *mensaje,int color = YELLOW, int bk_color = BLACK){
+        setbkcolor(bk_color);
+        setcolor(color);
+        settextstyle(SANS_SERIF_FONT, HORIZ_DIR, 1);
+        settextjustify(LEFT_TEXT, CENTER_TEXT);
+        outtextxy(x, y, mensaje);
+    }
+
+    /**
+
+    **/
+    void mensajeHeader(char *mensaje,int x, int y){
+        mensajeGrafico(x, y, mensaje, BLUE, WHITE);
     }
 
     /**
@@ -103,8 +123,8 @@ public:
             //longitud_ini = mid_x + vertex.second->data.Longitude*factor_x;
             //latitud_ini = mid_y - vertex.second->data.Latitude*factor_y;
 
-            longitud_ini = 50 + (vertex.second->data.Longitude - lon_min)*factor_x*0.9;
-            latitud_ini = 50 + (vertex.second->data.Latitude - lat_min)*factor_y*0.9;
+            longitud_ini = 50 + (vertex.second->data.Longitude - lon_min)*factor_x*0.75;
+            latitud_ini = 50 + (vertex.second->data.Latitude - lat_min)*factor_y*0.75;
             if (latitud_ini > mid_y){
                 latitud_ini = latitud_ini - 2*(latitud_ini-mid_y);
             }else {
@@ -115,8 +135,8 @@ public:
             //coordenadas llegada
             //longitud_fin = mid_x + edge->vertexes[1]->data.Longitude*factor_x;
             //latitud_fin = mid_y - edge->vertexes[1]->data.Latitude*factor_y;
-            longitud_fin = 50 + (edge->vertexes[1]->data.Longitude - lon_min)*factor_x*0.9;
-            latitud_fin = 50 + (edge->vertexes[1]->data.Latitude - lat_min)*factor_y*0.9;
+            longitud_fin = 50 + (edge->vertexes[1]->data.Longitude - lon_min)*factor_x*0.75;
+            latitud_fin = 50 + (edge->vertexes[1]->data.Latitude - lat_min)*factor_y*0.75;
             if (latitud_fin > mid_y){
                 latitud_fin = latitud_fin - 2*(latitud_fin-mid_y);
             }else {
@@ -169,6 +189,11 @@ public:
     **/
 
     void get_graficGraph(){
+        //borde
+        rectangle(10,10,width_w - 10,heigth_w - 10);
+
+        //graficar cabecera
+        //mensajeHeader(msj);
 
         //graficar aeropuertos
         graficAirports();
@@ -177,10 +202,10 @@ public:
         graficEdges();
 
         // Wait for the user to press a key.
-        getch();
+        //getch();
 
         // Close the gr3aphics window.
-        closegraph();
+        //closegraph();
     }
 };
 

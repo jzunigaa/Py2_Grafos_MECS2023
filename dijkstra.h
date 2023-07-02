@@ -15,7 +15,12 @@ struct DijkstraResult {
     int iterations;
 };
 
-DijkstraResult dijkstra(const Graph& graph, const std::string& source, const std::string& destination) {
+DijkstraResult dijkstra(Graph graph, const std::string& source, const std::string& destination) {
+    if(!graph.existVertex(source) || !graph.existVertex(destination)){
+        std::cout<<"No existe el aeropuerto de partida y/o destino"<<endl;
+        DijkstraResult result;
+        return result;
+    };
     std::unordered_map<std::string, Vertex*> vertexes = graph.getVertexes();
 
     std::unordered_map<std::string, double> distance;
@@ -70,6 +75,7 @@ DijkstraResult dijkstra(const Graph& graph, const std::string& source, const std
         route.push_back(currentVertex);
         currentVertex = previous[currentVertex];
     }
+
     std::reverse(route.begin(), route.end());
 
     DijkstraResult result;

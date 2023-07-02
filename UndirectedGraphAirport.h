@@ -36,6 +36,9 @@ struct Vertex {
 
 //template<typename TV, typename TE>
 class Graph{
+public:
+    double lat_min = 1000,lat_max = -1000,lon_min = 1000,lon_max = -1000;
+
 private:
     std::unordered_map<string, Vertex*>  vertexes;
 
@@ -53,6 +56,8 @@ public:
         Vertex* newVertex = new Vertex;
         newVertex->data = vertex;
         vertexes[vertex.Airport_ID] = newVertex;
+
+        recalculateFrontiers();
 
         return true;
     }
@@ -127,7 +132,30 @@ public:
         vertexes.erase(a.Airport_ID); // Borrar de la tabla hash
         delete vertexToDelete; // Borrar esta arista del grafo
 
+        recalculateFrontiers(); //Recalcular las fronteras
+
         return true;
+    }
+
+    /**
+    Recalcular los limites maximos y minimos de longitudes y latitudes del grafo
+    **/
+    void recalculateFrontiers(){
+
+        for(auto v: vertexes){
+            if(lat_min > v.second->data.Latitude){
+                lat_min = v.second->data.Latitude;
+            };
+            if(lat_max < v.second->data.Latitude){
+                lat_max = v.second->data.Latitude;
+            };
+            if(lon_min > v.second->data.Longitude){
+                lon_min = v.second->data.Longitude;
+            };
+            if(lon_max < v.second->data.Longitude){
+                lon_max = v.second->data.Longitude;
+            };
+        };
     }
 
     /**
@@ -315,11 +343,11 @@ public:
 
   // Recupera los vértices
   unordered_map<string, Vertex*> getVertexes() const {
-  unordered_map<string, Vertex*> result;
-  for (const auto& vertex : vertexes) {
-    result[vertex.first] = vertex.second;
-  }
-  return result;
+      /*unordered_map<string, Vertex*> result;
+      for (const auto& vertex : vertexes) {
+        result[vertex.first] = vertex.second;
+      }*/
+      return vertexes;
   }
 
 };
