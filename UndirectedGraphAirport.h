@@ -6,6 +6,8 @@
 #include <unordered_map>
 #include <string>
 #include "airport.h"
+#include <graphics.h>
+#include<conio.h>
 
 using namespace std;
 
@@ -34,11 +36,11 @@ struct Vertex {
 
 //template<typename TV, typename TE>
 class Graph{
-private:    
+private:
     std::unordered_map<string, Vertex*>  vertexes;
-    
+
 public:
-	
+
 	/**
 	  Insertar nuevo vértice que es Aeropuerto
 	**/
@@ -54,18 +56,18 @@ public:
 
         return true;
     }
-    
+
     /**
       Verificar si existe un vértice (por id)
     **/
     bool existVertex(string id)
     {
     	// Si el vértice id No existe (end es nulo)
-    	if (vertexes.find(id) == vertexes.end()) 
+    	if (vertexes.find(id) == vertexes.end())
     		return false;
-    	return true;	
+    	return true;
 	}
-	
+
 	/**
 	  Crear nueva arista entre los vértices aeropuertos a1 y a2
 	  Internamente se calculará el peso (distancia)
@@ -74,15 +76,15 @@ public:
     {
     	// Si no existe uno o los dos vértices, salir!
 		if (!existVertex(a1.Airport_ID) || !existVertex(a2.Airport_ID))
-            return false;    
-        
+            return false;
+
         Vertex* v1 = vertexes[a1.Airport_ID];
         Vertex* v2 = vertexes[a2.Airport_ID];
-        
+
 		// nueva arista de v1 a v2 con distancia de peso
-        Edge* newEdge = new Edge; 
+        Edge* newEdge = new Edge;
         Posicion aux;
-        
+
         newEdge->vertexes[0] = v1;
         newEdge->vertexes[1] = v2;
         newEdge->distancia = aux.distancia(Posicion(a2.Longitude, a2.Latitude), Posicion(a1.Longitude, a1.Latitude));
@@ -93,7 +95,7 @@ public:
 
         return true;
     }
-    
+
     /**
       Eliminar la arista (si existe) que tenga id
     **/
@@ -102,7 +104,7 @@ public:
     	// Si no existe, salir!
 		if (!existVertex(a.Airport_ID))
 			return false;
-		
+
 		// Obtener el vértice a eliminar
         Vertex* vertexToDelete = vertexes[a.Airport_ID];
 
@@ -118,7 +120,7 @@ public:
 				Vertex* otherVertex = edge->vertexes[0];
 				otherVertex->edges.remove(edge); // de v1 de esta arista, se elimina su arista v1v2
 			}
-            
+
             delete edge; // se elimina esta arista
         }
 
@@ -127,7 +129,7 @@ public:
 
         return true;
     }
-    
+
     /**
       Borrar la arista que tiene vértices id1 e id2
     **/
@@ -135,7 +137,7 @@ public:
     {
     	// Si no existe vértices id1 y/o id2, salir!!!
         if (!existVertex(a1.Airport_ID) || !existVertex(a2.Airport_ID))
-            return false;    
+            return false;
 
         // Con los ids obtener los vértices v1 y v2
 		Vertex* v1 = vertexes[a1.Airport_ID];
@@ -145,7 +147,7 @@ public:
 
         // recorrer las aristas de v1
 		for (auto edge : v1->edges) {
-			// Si esta arista es v1v2 o v2v1 
+			// Si esta arista es v1v2 o v2v1
             if ((edge->vertexes[0] == v1 && edge->vertexes[1] == v2) || (edge->vertexes[0] == v2 && edge->vertexes[1] == v1)) {
                 edgeToDelete = edge; // considerar la arista para eliminar
                 break;
@@ -163,7 +165,7 @@ public:
 
         return true;
     }
-    
+
     /**
       Obtiene el nro de vértices
     **/
@@ -173,16 +175,16 @@ public:
 
         if (numVertices <= 1)
             numVertices = 0;
-        return numVertices;    
+        return numVertices;
 	}
-    
+
     /**
       Obtiene el nro de aristas
     **/
     int getNumEdges()
     {
     	int numEdges = 0;
-    	
+
     	for (const auto& vertex : vertexes) {
             numEdges += vertex.second->edges.size();
         }
@@ -190,7 +192,7 @@ public:
 
         return numEdges;
 	}
-    
+
     /**
       Calcula la densidad de las conexiones entre vértices
     **/
@@ -199,25 +201,25 @@ public:
         int numVertices = getNumVertices();
         int numEdges = getNumEdges();
 
-        // Si es grafo vacío 
+        // Si es grafo vacío
         if (numVertices <= 1)
             return 0.0;
 
         float maxNumEdges = (numVertices * (numVertices - 1)) / 2;
-        
+
         cout<<"Numero de aristas que conectan actualmente : "<<numEdges<<endl;
         cout<<"Numero de aristas que deberian conectar todos los vertices: "<<maxNumEdges<<endl;
         return numEdges / maxNumEdges;
     }
-    
+
     /**
-      Es denso si es igual o mayor a 0.5 
+      Es denso si es igual o mayor a 0.5
     **/
     bool isDense(float threshold = 0.5)
     {
         return density() >= threshold;
     }
-    
+
     /**
       Devuelve true si está vacío el grafo
 	**/
@@ -225,7 +227,7 @@ public:
     {
         return vertexes.empty();
     }
-    
+
     /**
       Borrar todos los vértices y aristas del grafo
 	**/
@@ -240,10 +242,10 @@ public:
 
         vertexes.clear();
     }
-    
+
 	/**
 	  Mostrar los vértices y sus aristas
-	**/  
+	**/
     void display()
     {
     	// Recorrer el hash table de vértices
@@ -256,7 +258,7 @@ public:
             cout << endl;
         }
     }
-    
+
     /**
       Mostrar un vértice
     **/
@@ -275,7 +277,7 @@ public:
         }
         cout << endl;
     }
-    
+
     /**
       Buscar el vértice por id y devolver la data
 	**/
@@ -286,7 +288,7 @@ public:
 
         return vertexes[id]->data;
     }
-    
+
     // Método para obtener la distancia entre dos aeropuertos conectados
     // Si estan conectados se devuelve algun valor mayor a cero (su distancia)
     // Si no estan conectados se devuelve -1
@@ -302,7 +304,7 @@ public:
         // Si existe la arista id1, id2, mostrar su distancia, sino devolver -1
         bool existeArista = false;
         for (auto edge : vertex1->edges) {
-            if ((edge->vertexes[0] == vertex1 && edge->vertexes[1] == vertex2) || 
+            if ((edge->vertexes[0] == vertex1 && edge->vertexes[1] == vertex2) ||
 			    (edge->vertexes[0] == vertex2 && edge->vertexes[1] == vertex1))
                 return edge->distancia;
         }
@@ -319,7 +321,7 @@ public:
   }
   return result;
   }
-    
+
 };
 
 #endif

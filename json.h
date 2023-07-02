@@ -19,9 +19,10 @@ class JSON {
     std::vector<std::string> dest;
 
 public:
+    double lat_min = 1000,lat_max = -1000,lon_min = 1000,lon_max = -1000;
     std::list<Registro> registros;
     void parse(const std::string& json) {
-        
+
         std::istringstream iss(json);
         std::string line;
         std::string key, value;
@@ -30,7 +31,7 @@ public:
         while (std::getline(iss, line)) {
             trim(line);
             if (line.empty() || line[0] == '[' || line[0] == '{' || line[0] == '}' || (line.size() - 2 == '}' && line.size() - 1 == ',')) {
-                continue;  
+                continue;
             }
             std::istringstream issLine(line);
             std::getline(issLine, key, ':');
@@ -88,7 +89,7 @@ public:
 	// Leer archivo JSON y guardarlo en Graph
     bool read_JSON(Graph &G, std::string namefile)
     {
-    	std::ifstream inputFile(namefile);    
+    	std::ifstream inputFile(namefile);
         if (!inputFile.is_open()) {
             std::cerr << "No se puede abrir el archivo " << namefile << std::endl;
             return false;
@@ -99,7 +100,7 @@ public:
 
         // Parsear el JSON
         parse(json);
-        
+
         // Guardar los aeropuertos en cada vértice del grafo
         std::list<Registro>::iterator it;
         for (it = registros.begin(); it != registros.end(); ++it)
@@ -108,7 +109,20 @@ public:
 				Airport apto(it->data["Airport ID"], it->data["Country"], it->data["Name"],it->data["City"],
 				             std::stod(it->data["Longitude"]),std::stod(it->data["Latitude"]));
 	        	G.insertVertex(apto);
-	        	if(G.existVertex(it->data["Airport ID"])) 
+	        	if(lat_min > std::stod(it->data["Latitude"])){
+                    lat_min = std::stod(it->data["Latitude"]);
+	        	};
+	        	if(lat_max < std::stod(it->data["Latitude"])){
+                    lat_max = std::stod(it->data["Latitude"]);
+	        	};
+	        	if(lon_min > std::stod(it->data["Longitude"])){
+                    lon_min = std::stod(it->data["Longitude"]);
+	        	};
+	        	if(lon_max < std::stod(it->data["Longitude"])){
+                    lon_max = std::stod(it->data["Longitude"]);
+	        	};
+
+	        	if(G.existVertex(it->data["Airport ID"]))
 	        	{
 	        		std::cout<<"Se ha guardado correctamente el aeropuerto "<<it->data["Airport ID"]<<" : "<<it->data["City"]<<endl;;
 				}
@@ -119,19 +133,19 @@ public:
 			}
 			else {
 				std::cout<<"No se ha guardado el aeropuerto "<<it->data["Airport ID"]<<" : "<<it->data["City"]<<", Longitud y/o Latitud con errores"<<endl;
-				
+
 			}
         }
-        
+
         // Guardar los destinos de cada aeropuerto
         std::list<Registro>::iterator it2;
         for (it2 = registros.begin(); it2 != registros.end(); ++it2)
         {
         	// solo se considera registrar el aeropuerto con datos de lat y long correctos
-        	if(isNumber(it2->data["Longitude"]) && isNumber(it2->data["Latitude"])) { 
+        	if(isNumber(it2->data["Longitude"]) && isNumber(it2->data["Latitude"])) {
 	            for (int i = 0; i < it2->destinos.size(); i++)
 	            {
-	            	if(G.existVertex(it2->destinos[i])) 
+	            	if(G.existVertex(it2->destinos[i]))
 	            	{
 	            		G.createEdge(G.findById(it2->data["Airport ID"]), G.findById(it2->destinos[i]));
 					}
@@ -141,10 +155,10 @@ public:
 	            }
 	    	}
         }
-        
+
     	return true;
 	}
-	
+
 	// Validar si un texto es un número válido
 	bool isNumber(const std::string& s)
 	{
