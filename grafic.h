@@ -84,10 +84,10 @@ public:
     /**
 
     **/
-    void mensajeGrafico(int x, int y, char *mensaje,int color = YELLOW, int bk_color = BLACK){
+    void mensajeGrafico(int x, int y, char *mensaje,int color = YELLOW, int bk_color = BLACK, int fontStyle = SANS_SERIF_FONT, int sizeFont = 1){
         setbkcolor(bk_color);
         setcolor(color);
-        settextstyle(SANS_SERIF_FONT, HORIZ_DIR, 1);
+        settextstyle(fontStyle, HORIZ_DIR, sizeFont);
         settextjustify(LEFT_TEXT, CENTER_TEXT);
         outtextxy(x, y, mensaje);
     }
@@ -95,8 +95,8 @@ public:
     /**
 
     **/
-    void mensajeHeader(char *mensaje,int x, int y){
-        mensajeGrafico(x, y, mensaje, BLUE, WHITE);
+    void mensajeHeader(char *mensaje,int x, int y,int colorText = BLUE, int bgText = WHITE,int sizeFont = 1){
+        mensajeGrafico(x, y, mensaje, colorText, bgText,BOLD_FONT,sizeFont);
     }
 
     /**
@@ -190,8 +190,10 @@ public:
 
     void get_graficGraph(){
         //borde
+        setlinestyle(DASHED_LINE,0 , 3);
         rectangle(10,10,width_w - 10,heigth_w - 10);
 
+        setlinestyle(SOLID_LINE,0 , 1);
         //graficar cabecera
         //mensajeHeader(msj);
 
