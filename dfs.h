@@ -10,7 +10,7 @@
 #include "UndirectedGraphAirport.h"
 
 struct DFSResult {
-    std::vector<Airport> route;
+    std::vector<std::string> route;
     double distance;
     int iterations;
 };
@@ -44,10 +44,10 @@ DFSResult dfs(Graph& graph, Airport origin, Airport destination) {
         stack.pop();
 
         if (current.Airport_ID == destination.Airport_ID) {
-            
+
             std::string id = current.Airport_ID;
             while (id != "") {
-                result.route.push_back(graph.findById(id));
+                result.route.push_back(id);
                 id = parent[id];
             }
             std::reverse(result.route.begin(), result.route.end());
