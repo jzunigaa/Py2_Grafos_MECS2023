@@ -1,13 +1,45 @@
-# Py2_Grafos_MECS2023
-Proyecto 2 del curso de Estructuras de Datos
+# RUTA A脡REA 脫PTIMA CON GRAFOS Y ALGORITMOS DE B脷SQUEDA
 
-## Gesti髇 de Rutas/Destinos y Aeropuertos
+Proyecto 02 del curso Estructuras de Datos, Maestr铆a en Computer Science - UTEC 2023.
+
+#### Gesti贸n de Rutas/Destinos y Aeropuertos
 
 - Implementado en POO
 - Se ha usado Lenguaje C++ v17
 
+
+### 1. Introducci贸n
+------------
+El presente proyecto se encuentra desarrollado en C++ y tiene como objetivo principal simular un sistema de transacciones bancarias simples que almacenan la informaci贸n al interior de una blockchain y otras estructuras que permitan la b煤squeda eficiente de los datos almacenados...
+
+
+### 2. Descripci贸n del caso de estudio planteado
+------------
+El proyecto requiere un sistema que permita registrar de forma segura y sencilla, transacciones que almacenen datos como: el nombre del emisor, nombre del receptor, monto de la transacci贸n, fecha de la transacci贸n y lugar de la transacci贸n. Se requiere implementar una estructura blockchain que brinde seguridad al sistema y m煤ltiples estructuras de indexaci贸n para la recuperaci贸n eficiente de informaic贸n. Estas transacciones se agrupan en bloques y se registran en la blockchain.
+
+
+### 3. Importancia del Blockchain en el dominio de datos elegido
+------------
+El blockchain es importante en el dominio de transferencia de dinero porque proporciona una forma segura y confiable de registrar las transacciones. La estructura descentralizada (no se aplic贸 en este proyecto) y las t茅cnicas de encriptaci贸n de la blockchain garantizan la integridad de los datos y evitan la manipulaci贸n de las transacciones.
+
+
+### 4. Explicaci贸n de la estructura de datos y algoritmos de b煤squeda
+------------
+
 ## Clases
 
-- **Airport** - Sirve como base para el soporte de informaci髇 del aeropuerto
-- **Graph** - Es la clase grafo para la gesti髇 de Aueropuertos y sus destinos, cada aeropuerto es un v閞tice y cada destino o conexi髇 es una arista
-- **Posicion** - Se usa para gestionar las posiciones geogr醘icas a base de Longitud y Latitud, con ell ase obtiene la distancia geogr醘ica entre dos puntos o localizaciones geogr醘icas.
+- **Airport** - Sirve como base para el soporte de informaci贸n del aeropuerto
+- **Graph** - Es la clase grafo para la gesti贸n de Aueropuertos y sus destinos, cada aeropuerto es un v茅rtice y cada destino o conexi贸n es una arista
+- **Posicion** - Se usa para gestionar las posiciones geogr谩ficas a base de Longitud y Latitud, con ell ase obtiene la distancia geogr谩fica entre dos puntos o localizaciones geogr谩ficas.
+
+
+### 5. An谩lisis de la complejidad en notaci贸n Big O de los algoritmos de b煤squeda
+------------
+
+
+### 6. Conclusiones
+------------
+
+
+### 7. Bibliograf铆a
+------------
