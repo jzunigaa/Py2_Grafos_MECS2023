@@ -10,17 +10,17 @@ Proyecto 02 del curso Estructuras de Datos, Maestría en Computer Science - UTEC
 
 ### 1. Introducción
 ------------
-El presente proyecto se encuentra desarrollado en C++ y tiene como objetivo principal simular un sistema de transacciones bancarias simples que almacenan la información al interior de una blockchain y otras estructuras que permitan la búsqueda eficiente de los datos almacenados...
+El presente proyecto se encuentra desarrollado en C++ y consta de dos grandes etapas: La implementación de algoritmos para interconectar distintos aeropuertos (desde la estructuración de los datos brindados de los aeropuertos hasta el algoritmo mismo) y la realización de un programa para mostrar los distintos algoritmos usados, además de compararlos entre ellos.
 
 
 ### 2. Descripción del caso de estudio planteado
 ------------
-El proyecto requiere un sistema que permita registrar de forma segura y sencilla, transacciones que almacenen datos como: el nombre del emisor, nombre del receptor, monto de la transacción, fecha de la transacción y lugar de la transacción. Se requiere implementar una estructura blockchain que brinde seguridad al sistema y múltiples estructuras de indexación para la recuperación eficiente de informaicón. Estas transacciones se agrupan en bloques y se registran en la blockchain.
+El proyecto consta de unos datos iniciales de aeropuertos (nacionales e internacionales) las cuales incluyen su ubicación, nombre e Id entre otros pero siendo los tres primeros nuestros pilares, esto nos lleva primero a usar de un parser para “leer” los datos y luego agruparlo en nuestra estructura de datos que hemos convenido que sea un grafo ya que nos permite el uso de nuestros algoritmos, para simplificar el modelo se asume que las conexiones (aristas) sean bi-direccionales entre aeropuertos (vertices), habiendo algunos algoritmos que requieren peso entonces este será la distancia entre los aeropuertos y se tiene en cuenta la curvatura terrestre.
 
 
 ### 3. Importancia del Blockchain en el dominio de datos elegido
 ------------
-El blockchain es importante en el dominio de transferencia de dinero porque proporciona una forma segura y confiable de registrar las transacciones. La estructura descentralizada (no se aplicó en este proyecto) y las técnicas de encriptación de la blockchain garantizan la integridad de los datos y evitan la manipulación de las transacciones.
+Este proyecto ayuda a comprender de mejor manera los distintos algoritmos de búsqueda y rutas, para un posterior desarrollo funcional debería tener algunas variaciones, tendría como objetivo ayudar a un viajero inexperto y teniendo en cuenta que el dispositivo más usado es el celular no podría tener un algoritmo tan pesado como es Dijkstra entonces usaría un A*.
 
 
 ### 4. Explicación de la estructura de datos y algoritmos de búsqueda
