@@ -2,9 +2,14 @@
 
 Proyecto 02 del curso Estructuras de Datos, Maestría en Computer Science - UTEC 2023.
 
+- Alfredo Minchez
+- Jeyson Lino Nicho
+- Jose Zuñiga Avila
+- Juan Herencia
+
 #### Gestión de Rutas/Destinos y Aeropuertos
 
-- Implementado en POO
+- Implementado en POOr
 - Se ha usado Lenguaje C++ v17
 
 
