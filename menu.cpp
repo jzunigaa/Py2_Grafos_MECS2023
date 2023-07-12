@@ -3,9 +3,9 @@
 #include "UndirectedGraphAirport.h"
 #include "grafic.h"
 #include "dijkstra.h"
+#include "astar.h"
 /*
 #include<unordered_map>
-#include "astar.h"
 #include "dfs.h"
 #include "bfs.h"
 */
@@ -131,7 +131,7 @@ void cargarDataMundo() {
 	pause();
 }
 
-void mostrarSalidas(Graph dijkstra_graf,DijkstraResult dijkstra_result  ) {
+void mostrarSalidas(Graph dijkstra_graf,DijkstraResult dijkstra_result,Graph AStar_Result,AStarResult astar_  ) {
 	cls();
 	char mensaje_1[1000];
     char mensaje_2[1000];
@@ -141,15 +141,24 @@ void mostrarSalidas(Graph dijkstra_graf,DijkstraResult dijkstra_result  ) {
     cout<<"Motrar los graficos y datos resultantes"<<endl;
     initwindow(x, y, "Resultados");
     grafic dj_result(x,y,dijkstra_graf);
+    grafic g_AStarResult(x,y,AStar_Result);
+
     std::string mensaje_str_1 = "DIJKSTRA -> distancia: " + to_string(round(dijkstra_result.distance*100)/100.0) + " Km | iteraciones: " + to_string(dijkstra_result.iterations) \
                                 + " | # aeropuertos: " + to_string(dijkstra_result.route.size());
+    std::string mensaje_str_2 = "ASTAR -> distancia: " + to_string(round(astar_.distance*100)/100.0) + " Km | iteraciones: " + to_string(astar_.iterations) \
+                                + " | # aeropuertos: " + to_string(astar_.route.size());
     std::string mensaje_cabecera = "Ruta desde '" + dijkstra_graf.findById(dijkstra_result.route[0]).City + "' hasta '" + dijkstra_graf.findById(dijkstra_result.route[dijkstra_result.route.size()-1]).City;
     strcpy(mensaje_0,mensaje_cabecera.c_str());
     strcpy(mensaje_1,mensaje_str_1.c_str());
+    strcpy(mensaje_2,mensaje_str_2.c_str());
+
     dj_result.get_graficGraph();
+    g_AStarResult.get_graficGraph();
+
     setusercharsize( 1, 2, 3, 4 ); // 50% de ancho; 75% de alto
     dj_result.mensajeHeader(mensaje_0,50,20,RED,YELLOW,0);
     dj_result.mensajeHeader(mensaje_1,50,40,BLUE,WHITE,0);
+    dj_result.mensajeHeader(mensaje_2,50,60,BLUE,WHITE,0);
 
 
 	// Wait for the user to press a key.
@@ -170,10 +179,12 @@ void consultarRutas() {
 	cin>>id_ini;
 	cout<<"\nIngrese aeropuerto de llegada (ID): ";
 	cin>>id_fin;
+	/*
 	cout<<"Ingrese el(los) algoritmos que desea utilizar separados por guion (a-b-c):"<<endl;
 	cout<<"a. Dijkstra   b. Astar   c. DFS  d. BFS"<<endl;
 	cout<<endl;
 	cin>>rpta;
+    */
 
 	//algoritmos
     Graph dijkstra_graf;
@@ -191,7 +202,19 @@ void consultarRutas() {
     for(int i = 0; i < dijkstra_result.route.size() - 1; i++){
         dijkstra_graf.createEdge(dijkstra_graf.findById(dijkstra_result.route[i]),dijkstra_graf.findById(dijkstra_result.route[i+1]));
     };
-	mostrarSalidas(dijkstra_graf,dijkstra_result );
+
+    //Astar
+    AStarResult astar_ = astar(*g,id_ini,id_fin);
+
+    for(const auto& id: astar_.route){
+        AStar_graf.insertVertex(g->findById(id));
+    };
+
+    for(int i = 0; i < astar_.route.size() - 1; i++){
+        AStar_graf.createEdge(AStar_graf.findById(astar_.route[i]),AStar_graf.findById(astar_.route[i+1]));
+    };
+
+	mostrarSalidas(dijkstra_graf,dijkstra_result, AStar_graf,astar_);
 	pause();
 }
 
@@ -215,8 +238,8 @@ int main()
 				break;
 			case 3: consultarRutas();
 				break;
-			case 4: mostrarSalidas(*g,r);
-				break;
+			//case 4: mostrarSalidas(*g,r);
+			//	break;
 			case 5: eliminarVertice();
 				break;
 		}
