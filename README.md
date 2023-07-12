@@ -22,6 +22,57 @@ El proyecto consta de unos datos iniciales de aeropuertos (nacionales e internac
 ------------
 Este proyecto ayuda a comprender de mejor manera los distintos algoritmos de búsqueda y rutas, para un posterior desarrollo funcional debería tener algunas variaciones, tendría como objetivo ayudar a un viajero inexperto y teniendo en cuenta que el dispositivo más usado es el celular no podría tener un algoritmo tan pesado como es Dijkstra entonces usaría un A*.
 
+### 4. Implementación
+------------
+
+#### 4.1 Arquitectura
+Para lograr el cumplimiento de los requerimientos se ha desarrollado 4 capas dentro de la arquitectura de programas en C++.
+Se explica en orden de los procesos de construcción del Blockchain: Capa Kernel, Capa Base de Datos, Capa BlockChain y Capa Vista.
+En vista de los requerimientos del proyecto vimos conveniente usar unos grafos (vértice, arista).
+
+### 4.2 Clase AIRPORT.h: Aeropuertos obtenidos del Json
+
+```cpp
+struct Airport {
+  	std::string Airport_ID;    // 2792,
+ 	std::string Country;       // Peru,
+  	std::string Name;          // Juliaca,  
+  	std::string City;          // Juliaca,  
+  	double Longitude;          // -70.158169,
+  	double Latitude;           // -15.467103,
+  	std::string DBTZ;          // U,
+  	std::string IATA_FAA;      // JUL,
+  	std::string ICAO;          // SPJL,
+  	int Timezone;              // 12552,
+  	std::string DST;           // -5,
+  	std::vector<std::string> destinations; // Lista de IDs de Airports
+	}
+	struct Posicion {
+		double longitud;
+    		double latitud;
+	};
+```
+
+### 4.3 UndirectedGraphAirpot.h: Grafo de los aeropuertos
+
+```cpp
+struct Edge {
+    	Vertex* vertexes[2];
+    	double distancia;
+	};//Una arista siempre se compone de vertices
+
+	struct Vertex {
+    	Airport data;
+   	 std::list<Edge*> edges;
+	};//los vertices guardan sus listas de aristas
+
+	class Graph{
+	double lat_min = 1000,lat_max = -1000,lon_min = 1000,lon_max = -1000;
+	//estos valores serán importantes al momento de graficar
+	std::unordered_map<string, Vertex*>  vertexes;
+	}}//el key del hashtable es el Airport ID para simplificar los recorridos
+```
+
 
 ### 4. Explicación de la estructura de datos y algoritmos de búsqueda
 ------------
