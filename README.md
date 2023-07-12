@@ -20,22 +20,17 @@ El presente proyecto se encuentra desarrollado en C++ y consta de dos grandes et
 
 ### 2. Descripción del caso de estudio planteado
 ------------
-El proyecto consta de unos datos iniciales de aeropuertos (nacionales e internacionales) las cuales incluyen su ubicación, nombre e Id entre otros pero siendo los tres primeros nuestros pilares, esto nos lleva primero a usar de un parser para “leer” los datos y luego agruparlo en nuestra estructura de datos que hemos convenido que sea un grafo ya que nos permite el uso de nuestros algoritmos, para simplificar el modelo se asume que las conexiones (aristas) sean bi-direccionales entre aeropuertos (vertices), habiendo algunos algoritmos que requieren peso entonces este será la distancia entre los aeropuertos y se tiene en cuenta la curvatura terrestre.
+El proyecto consta de unos datos iniciales de aeropuertos (nacionales e internacionales) las cuales incluyen su ubicación, nombre e Id entre otros pero siendo los tres primeros nuestros pilares, esto nos lleva primero a usar de un parser para “leer” los datos y luego agruparlo en nuestra estructura de datos que hemos convenido que sea un grafo ya que nos permite el uso de nuestros algoritmos, para simplificar el modelo se asume que las conexiones (aristas) sean bi-direccionales entre aeropuertos (vértices), habiendo algunos algoritmos que requieren peso entonces este será la distancia entre los aeropuertos y se tiene en cuenta la curvatura terrestre.
 
 
-### 3. Importancia del Blockchain en el dominio de datos elegido
+### 3. Importancia del proyecto
 ------------
 Este proyecto ayuda a comprender de mejor manera los distintos algoritmos de búsqueda y rutas, para un posterior desarrollo funcional debería tener algunas variaciones, tendría como objetivo ayudar a un viajero inexperto y teniendo en cuenta que el dispositivo más usado es el celular no podría tener un algoritmo tan pesado como es Dijkstra entonces usaría un A*.
 
 ### 4. Implementación
 ------------
 
-#### 4.1 Arquitectura
-Para lograr el cumplimiento de los requerimientos se ha desarrollado 4 capas dentro de la arquitectura de programas en C++.
-Se explica en orden de los procesos de construcción del Blockchain: Capa Kernel, Capa Base de Datos, Capa BlockChain y Capa Vista.
-En vista de los requerimientos del proyecto vimos conveniente usar unos grafos (vértice, arista).
-
-### 4.2 Clase AIRPORT.h: Aeropuertos obtenidos del Json
+### 4.1 Clase AIRPORT.h: Aeropuertos obtenidos del Json
 
 ```cpp
 struct Airport {
@@ -58,7 +53,12 @@ struct Airport {
 	};
 ```
 
-### 4.3 UndirectedGraphAirpot.h: Grafo de los aeropuertos
+| Método | Descripción |
+| ------ | ------ |
+| distancia (Posicion origen, Posicion destino) | Obtencion de la distancia geográfica usando la formula de Haversine |
+
+
+### 4.2 UndirectedGraphAirpot.h: Grafo de los aeropuertos
 
 ```cpp
 struct Edge {
@@ -77,6 +77,25 @@ struct Edge {
 	std::unordered_map<string, Vertex*>  vertexes;
 	}}//el key del hashtable es el Airport ID para simplificar los recorridos
 ```
+
+| Método | Descripción |
+| ------ | ------ |
+| bool insertVertex(Airport vertex) | Insertar nuevo vértice que es Aeropuerto |
+| bool existVertex(string id) | Verificar si existe un vértice (por id) |
+| bool createEdge(Airport a1, Airport a2) | Crear nueva arista entre los vértices aeropuertos a1 y a2 |
+| bool deleteVertex(Airport a) | Eliminar la arista (si existe) que tenga id |
+| void recalculateFrontiers() | Recalcular los limites maximos y minimos de longitudes y latitudes del grafo |
+| bool deleteEdge(Airport a1, Airport a2) | Borrar la arista que tiene vértices id1 e id2 ***(importante ya que usa un select) |
+| int getNumVertices() | Método que muestra los valores de los nodos de la lista circular doble. |
+| int getNumEdges() | Método que retorna la cantidad dde nodos existentes en la lista circular doble. |
+| float density() | Método que retorna el valor del nodo anterior al head. |
+| bool isDense(float threshold = 0.5) |  |
+| bool empty() |  |
+| void display() |  |
+| void displayVertex(Airport a) |  |
+| Airport findById(string id) |  |
+| double getDistance(string id1, string id2) |  |
+| unordered_map<string, Vertex*> getVertexes() |  |
 
 
 ### 4. Explicación de la estructura de datos y algoritmos de búsqueda
