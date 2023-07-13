@@ -156,10 +156,3 @@ El algoritmo tiene una complejidad de tiempo de O((V + E) log V), donde V es el 
 
 ### 5.3 DIJKSTRA
 En cuanto a la complejidad, el algoritmo de Dijkstra tiene una complejidad de tiempo de O((V + E) log V), donde V es el número de vértices y E es el número de aristas en el grafo. Esto se debe a la utilización de una cola de prioridad para seleccionar el vértice con la menor distancia en cada iteración. Las operaciones de inserción y extracción en la cola de prioridad tienen un tiempo logarítmico. El acceso a los vértices y aristas se realiza mediante mapas y colas, lo que contribuye a mantener la complejidad.
-
-### 6. Conclusiones
-------------
-
-
-### 7. Bibliografía
-------------
